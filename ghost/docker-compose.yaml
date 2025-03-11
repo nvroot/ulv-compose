@@ -12,13 +12,6 @@ services:
       - database__connection__user=ghost-user
       - database__connection__password=changeme
       - database__connection__database=ghost
-      - mail__transport=SMTP
-      - mail__options__auth__user=admin@example.com
-      - mail__options__auth__pass=mail-password
-      - mail__options__secure=true
-      - mail__options__port=465
-      - mail__options__service=Mailgun
-      - mail__options__host=smtp.mailgun.org
     expose:
       - 2368
     networks:
