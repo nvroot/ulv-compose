@@ -1,0 +1,62 @@
+services:
+  ghost:
+    image: ghost:5
+    container_name: ghost
+    restart: unless-stopped
+    volumes:
+      - ghost-data:/var/lib/ghost/content
+    environment:
+      - url=https://ghost.example.com
+      - database__client=mysql
+      - database__connection__host=mysql
+      - database__connection__user=ghost-user
+      - database__connection__password=changeme
+      - database__connection__database=ghost
+      - mail__transport=SMTP
+      - mail__options__auth__user=admin@example.com
+      - mail__options__auth__pass=mail-password
+      - mail__options__secure=true
+      - mail__options__port=465
+      - mail__options__service=Mailgun
+      - mail__options__host=smtp.mailgun.org
+    expose:
+      - 2368
+    networks:
+      - ghost-network
+      - proxy
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "echo", "ok"]
+      interval: 60s
+      timeout: 20s
+      retries: 5
+      start_period: 60s
+      start_interval: 5s
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    volumes:
+      - ghost-db:/var/lib/mysql
+    environment:
+      - MYSQL_USER=ghost-user
+      - MYSQL_PASSWORD=changeme
+      - MYSQL_DATABASE=ghost
+      - MYSQL_ROOT_PASSWORD=changeme
+    networks:
+      - ghost-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 60s
+      timeout: 20s
+      retries: 5
+      start_period: 60s
+      start_interval: 5s
+networks:
+  ghost-network:
+  proxy:
+    external: true
+volumes:
+  ghost-data:
+  ghost-db:
