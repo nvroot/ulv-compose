@@ -12,7 +12,7 @@ services:
     volumes:
       - './authentik-db:/var/lib/postgresql/data'
     environment:
-      - 'POSTGRES_PASSWORD=changeme'
+      - 'POSTGRES_PASSWORD=changeme'  # edit 
       - 'POSTGRES_USER=authentik-user'
       - 'POSTGRES_DB=authentik'
   redis:
@@ -38,7 +38,7 @@ services:
       - 'AUTHENTIK_POSTGRESQL__HOST=postgresql'
       - 'AUTHENTIK_POSTGRESQL__USER=authentik-user'
       - 'AUTHENTIK_POSTGRESQL__NAME=authentik'
-      - 'AUTHENTIK_POSTGRESQL__PASSWORD=changeme'
+      - 'AUTHENTIK_POSTGRESQL__PASSWORD=changeme' # edit
       - 'AUTHENTIK_SECRET_KEY=secretkey'
       - 'AUTHENTIK_ERROR_REPORTING__ENABLED=true'
       - 'AUTHENTIK_EMAIL__HOST=smtp.example.com'
@@ -70,7 +70,7 @@ services:
       - 'AUTHENTIK_POSTGRESQL__HOST=postgresql'
       - 'AUTHENTIK_POSTGRESQL__USER=authentik-user'
       - 'AUTHENTIK_POSTGRESQL__NAME=authentik'
-      - 'AUTHENTIK_POSTGRESQL__PASSWORD=changeme'
+      - 'AUTHENTIK_POSTGRESQL__PASSWORD=changeme'   # edit
       - 'AUTHENTIK_SECRET_KEY=secret-key'
       - 'AUTHENTIK_ERROR_REPORTING__ENABLED=true'
       - 'AUTHENTIK_EMAIL__HOST=smtp.example.com'
